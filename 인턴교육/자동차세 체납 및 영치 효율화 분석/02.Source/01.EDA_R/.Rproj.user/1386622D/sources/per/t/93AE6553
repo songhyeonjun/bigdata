@@ -1,0 +1,25 @@
+{
+    "id": "93AE6553",
+    "path": "C:/08.CTC/02.Source/04. 고액 체납자 데이터셋 생성.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "3231952997",
+    "contents": "",
+    "dirty": false,
+    "created": 1611558132250.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "tempName": "Untitled1",
+        "cursorPosition": "50,17",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1611559562,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1611559562072,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,64 @@
+rm(list = ls())
+set.seed(333);options(stringsAsFactors = F)
+
+# import Lib.
+pkg_list <-
+  c('sf',
+    'raster',
+    'dplyr',
+    'readxl',
+    'gstat',
+    'data.table',
+    'lwgeom')
+
+# install.packages(pkg_list)
+
+lapply(pkg_list, require, character.only = TRUE)
+
+setwd('C:/08.CTC/01.Data')
+
+# 2021.01.05
+######################################################################################
+                                   # 공간 데이터 생성 #
+######################################################################################
+
+# 데이터 불러오기
+youngchi <- read.csv('01_youngchi.csv', encoding='cp949')
+chenap <- read.csv('02_chenap.csv', encoding='cp949')
+carreg <- read.csv('03_carreg.csv', encoding='cp949')
+
+# 01_youngchi_loc.shp 생성
+if (max(youngchi$loc_y, na.rm=TRUE) > 39) {
+  youngchi %>% filter(!is.na(loc_x) | !is.na(loc_y)) %>% st_as_sf(coords=c('loc_x', 'loc_y'), crs=5179, remove=FALSE) %>% st_write("01_youngchi_loc.shp", layer_options="ENCODING=cp949")
+} else {
+  youngchi %>% filter(!is.na(loc_x) | !is.na(loc_y)) %>% st_as_sf(coords=c('loc_x', 'loc_y'), crs=4326, remove=FALSE) %>% st_transform(5179) %>% st_write("01_youngchi_loc.shp", layer_options="ENCODING=cp949")
+}
+
+# 01_youngchi_adr.shp 생성
+if (max(youngchi$adr_y, na.rm=TRUE) > 39) {
+  youngchi %>% filter(!is.na(adr_x) | !is.na(adr_y)) %>% st_as_sf(coords=c('adr_x', 'adr_y'), crs=5179, remove=FALSE) %>% st_write("01_youngchi_adr.shp", layer_options="ENCODING=cp949")
+} else {
+  youngchi %>% filter(!is.na(adr_x) | !is.na(adr_y)) %>% st_as_sf(coords=c('adr_x', 'adr_y'), crs=4326, remove=FALSE) %>% st_transform(5179) %>% st_write("01_youngchi_adr.shp", layer_options="ENCODING=cp949")
+}
+
+# 02_chenap_adr.shp 생성
+if (max(chenap$adr_y, na.rm = TRUE) > 39) {
+  chenap %>% filter(!is.na(adr_x) | !is.na(adr_y)) %>% st_as_sf(coords=c('adr_x', 'adr_y'), crs=5179, remove=FALSE) %>% st_write("02_chenap_adr.shp", layer_options="ENCODING=cp949")
+} else {
+  chenap %>% filter(!is.na(adr_x) | !is.na(adr_y)) %>% st_as_sf(coords=c('adr_x', 'adr_y'), crs=4326, remove=FALSE) %>% st_transform(5179) %>% st_write("02_chenap_adr.shp", layer_options="ENCODING=cp949")
+}
+
+# 02_chenap_work.shp 생성
+# 체납자 직장주소 데이터가 존재하지 않을 시 생략 가능
+if (max(chenap$work_y, na.rm = TRUE) > 39) {
+  chenap %>% filter(!is.na(work_x) | !is.na(work_y)) %>% st_as_sf(coords=c('work_x', 'work_y'), crs=5179, remove=FALSE) %>% st_write("02_chenap_work.shp", layer_options="ENCODING=cp949")
+} else {
+  chenap %>% filter(!is.na(work_x) | !is.na(work_y)) %>% st_as_sf(coords=c('work_x', 'work_y'), crs=4326, remove=FALSE) %>% st_transform(5179) %>% st_write("02_chenap_work.shp", layer_options="ENCODING=cp949")
+}
+
+# 03_carreg_adr.shp 생성
+if (max(carreg$adr_y, na.rm = TRUE) > 39) {
+  carreg %>% filter(!is.na(adr_x) | !is.na(adr_y)) %>% st_as_sf(coords=c('adr_x', 'adr_y'), crs=5179, remove=FALSE) %>% st_write("03_carreg_adr.shp", layer_options="ENCODING=cp949")
+} else {
+  carreg %>% filter(!is.na(adr_x) | !is.na(adr_y)) %>% st_as_sf(coords=c('adr_x', 'adr_y'), crs=4326, remove=FALSE) %>% st_transform(5179) %>% st_write("03_carreg_adr.shp", layer_options="ENCODING=cp949")
+}

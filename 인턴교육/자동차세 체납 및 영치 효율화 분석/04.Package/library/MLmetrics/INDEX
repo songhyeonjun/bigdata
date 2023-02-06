@@ -1,0 +1,35 @@
+AUC                     Area Under the Receiver Operating
+                        Characteristic Curve (ROC AUC)
+Accuracy                Accuracy
+Area_Under_Curve        Calculate the Area Under the Curve
+ConfusionMatrix         Confusion Matrix
+F1_Score                F1 Score
+FBeta_Score             F-Beta Score
+GainAUC                 Area Under the Gain Chart
+Gini                    Gini Coefficient
+KS_Stat                 Kolmogorov-Smirnov Statistic
+LiftAUC                 Area Under the Lift Chart
+LogLoss                 Log loss / Cross-Entropy Loss
+MAE                     Mean Absolute Error Loss
+MAPE                    Mean Absolute Percentage Error Loss
+MLmetrics               MLmetrics: Machine Learning Evaluation Metrics
+MSE                     Mean Square Error Loss
+MedianAE                Median Absolute Error Loss
+MedianAPE               Median Absolute Percentage Error Loss
+MultiLogLoss            Multi Class Log Loss
+NormalizedGini          Normalized Gini Coefficient
+PRAUC                   Area Under the Precision-Recall Curve (PR AUC)
+Poisson_LogLoss         Poisson Log loss
+Precision               Precision
+R2_Score                R-Squared (Coefficient of Determination)
+                        Regression Score
+RAE                     Relative Absolute Error Loss
+RMSE                    Root Mean Square Error Loss
+RMSLE                   Root Mean Squared Logarithmic Error Loss
+RMSPE                   Root Mean Square Percentage Error Loss
+RRSE                    Root Relative Squared Error Loss
+Recall                  Recall
+Sensitivity             Sensitivity
+Specificity             Specificity
+ZeroOneLoss             Normalized Zero-One Loss (Classification Error
+                        Loss)

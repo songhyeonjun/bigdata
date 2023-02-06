@@ -1,0 +1,25 @@
+{
+    "id": "D9CCFD51",
+    "path": "C:/08.CTC/02.Source/03. 통계 모델링 데이터셋 생성.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "20800177",
+    "contents": "",
+    "dirty": false,
+    "created": 1611307892740.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "tempName": "Untitled1",
+        "cursorPosition": "18,42",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1611308154,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1611308154918,
+    "read_only": false,
+    "read_only_alternatives": []
+}

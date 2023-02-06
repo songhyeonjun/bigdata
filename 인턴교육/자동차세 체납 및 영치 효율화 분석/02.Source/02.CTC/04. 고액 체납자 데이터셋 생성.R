@@ -1,0 +1,75 @@
+######################################################################################
+                           # 고액 체납자 데이터셋 생성  #
+######################################################################################
+
+rm(list = ls())
+set.seed(333);options(stringsAsFactors = F)
+
+# import Lib.
+pkg_list <-
+  c('sf',
+    'raster',
+    'dplyr',
+    'readxl',
+    'gstat',
+    'data.table',
+    'lwgeom')
+
+# install.packages(pkg_list)
+
+lapply(pkg_list, require, character.only = TRUE)
+
+setwd('C:/08.CTC/01.Data')
+
+# 2021. 01. 12
+# 데이터 불러오기
+chenap <- read.csv('02_chenap.csv', encoding='cp949')
+chenap_hlist <- read.csv('02-1_chenap_hlist.csv', encoding='cp949')
+cctv_fix <- read.csv('04_cctv_fix.csv', encoding='cp949')
+cctv_fix_alarm <- read.csv('04-1_cctv_fix_alarm.csv', encoding='cp949')
+cctv_fix_loc <- read.csv('04-2_cctv_fix_loc.csv', encoding='cp949')
+cctv_road <- read.csv('05_cctv_road.csv', encoding='cp949')
+cctv_road_loc <- read.csv('05-1_cctv_road_loc.csv', encoding='cp949')
+cctv_mov <- read.csv('06_cctv_mov.csv', encoding='cp949')
+
+# 조인 필요 컬럼 트리밍 처리
+chenap$car_num <- trimws(chenap$car_num)
+chenap_hlist$car_num <- trimws(chenap_hlist$car_num)
+cctv_mov$car_num <- trimws(cctv_mov$car_num)
+cctv_fix$car_num <- trimws(cctv_fix$car_num)
+cctv_fix_alarm$car_num <- trimws(cctv_fix_alarm$car_num)
+cctv_road$car_num <- trimws(cctv_road$car_num)
+cctv_mov$t <- trimws(cctv_mov$t)
+cctv_fix$t <- trimws(cctv_fix$t)
+cctv_fix_alarm$t <- trimws(cctv_fix_alarm$t)
+
+# 고정형 + 고정형 알리미 통합(1시간 이내 중복 제거)
+fix_union <- union_all(cctv_fix[,c("car_num", "t", "cctv_id")], cctv_fix_alarm[,c("car_num", "t", "cctv_id")])
+
+fix_except <- inner_join(cctv_fix, cctv_fix_alarm, c('car_num', 'cctv_id')) %>% 
+  filter(as.POSIXlt(t.x)$hour - as.POSIXlt(t.y)$hour == 0) %>% 
+  select(car_num, t.y, cctv_id) %>% rename(t=t.y)
+
+fix_union <- anti_join(fix_union, fix_except, 'car_num') %>% mutate(id=row_number()) %>% select(id, car_num, t, cctv_id)
+
+# 통합 단속내역 중 고액체납자 단속내역 추출 및 고액체납자 정보 조인
+fix_join_fixloc <- left_join(fix_union, cctv_fix_loc, 'cctv_id') %>% 
+  bind_cols(cat='고정형불법주정차') %>% select(t, car_num, cctv_id, x, y, cat)
+
+mov_union <- union(fix_join_fixloc, cctv_mov %>% bind_cols(cat='주행형불법주정차', cctv_id=NA) %>%
+                     select(t, car_num, cctv_id, x, y, cat))
+
+road_join_roadloc <- left_join(cctv_road, cctv_road_loc, 'cctv_id') %>% bind_cols(cat='도로방범') %>% 
+  select(t, car_num, cctv_id, x, y, cat)
+
+road_union <- union(mov_union, road_join_roadloc)
+
+t1 <- left_join(road_union, chenap_hlist, 'car_num') %>% filter(car_num %in% chenap_hlist$car_num) %>% 
+  select (t, car_num, cctv_id, x, y, cat, l_price, l_cnn)
+
+# 체납데이터 일부컬럼 삭제  
+t2 <- chenap[, c("id", "car_num", "chk", "price", "cn_n", "ymd", "adr", "age", "car_age")]
+t2 <- rename(t2, "c_cnn"="cn_n", "c_price"="price")
+
+write.csv(t1, "../03.Output/t1.csv", row.names=FALSE)
+write.csv(t2, "../03.Output/t2.csv", row.names=FALSE)

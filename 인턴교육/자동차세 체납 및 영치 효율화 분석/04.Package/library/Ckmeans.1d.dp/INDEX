@@ -1,0 +1,14 @@
+Ckmeans.1d.dp-package   Optimal, Fast, and Reproducible Univariate
+                        Clustering
+MultiChannel.WUC        Optimal Multi-channel Weighted Univariate
+                        Clustering
+Univariate Clustering   Optimal (Weighted) Univariate Clustering
+Univariate Segmentation
+                        Optimal Univariate Segmentation
+ahist                   Adaptive Histograms
+plot.Ckmeans.1d.dp      Plot Optimal Univariate Clustering Results
+plot.Cksegs.1d.dp       Plot Optimal Univariate Segmentation Results
+plotBIC                 Plot Bayesian Information Criterion as a
+                        Function of Number of Clusters
+print.Ckmeans.1d.dp     Print Optimal Univariate Clustering Results
+print.Cksegs.1d.dp      Print Optimal Univariate Segmentation Results
