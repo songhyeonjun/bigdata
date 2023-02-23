@@ -1,0 +1,94 @@
+select * from cslee.tb_accnt;
+select * from cslee.tb_cust;
+select * from cslee.tb_emp;
+select * from cslee.tb_prod;
+select * from cslee.tb_tran;
+select * from cslee.tb_trcd;
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, position 직무, SALARY 연봉
+FROM cslee.TB_EMP
+WHERE POSITION ='대리';
+
+select count(*) from cslee.tb_emp;
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, POSITION 직무, SALARY 연봉
+FROM cslee.TB_EMP;
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, POSITION 직무, SALARY 연봉
+FROM cslee.TB_EMP
+WHERE SALARY >= 50000000 ;
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, POSITION 직책, SALARY 연봉
+FROM cslee.TB_EMP
+WHERE (ORG_CD = '08' OR ORG_CD = '09' OR ORG_CD = '10')
+AND POSITION='사원'
+AND SALARY >= 40000000
+AND SALARY <= 50000000;
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, POSITION 직책, SALARY 연봉
+FROM cslee.TB_EMP
+WHERE ORG_CD IN ( '08', '09', '10')
+AND POSITION='사원'
+AND SALARY BETWEEN 40000000 AND 50000000;
+
+SELECT EMP_NAME 사원이름, SALARY 연봉
+FROM cslee.TB_EMP
+WHERE SALARY BETWEEN 40000000 AND 50000000;
+
+SELECT EMP_NAME, ORG_CD, POSITION
+FROM cslee.TB_EMP
+WHERE ORG_CD IN ('06','07')
+AND POSITION IN ('팀장','과장');
+
+SELECT EMP_NAME, ORG_CD, POSITION
+FROM cslee.TB_EMP
+WHERE (ORG_CD, POSITION) 
+IN (('06','팀장'), ('07','과장'));
+
+SELECT EMP_NAME 사원이름, ORG_CD 팀코드, POSITION 직책, ENT_DATE 
+입사일자
+FROM cslee.TB_EMP
+WHERE EMP_NAME LIKE '김%';
+
+SELECT EMP_NAME 사원이름, ORG_CD 팀코드, POSITION 직책, ENT_DATE 
+입사일자
+FROM cslee.TB_EMP
+WHERE EMP_NAME LIKE '_승%';
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, POSITION 직책, GENDER 성별
+FROM cslee.TB_EMP
+WHERE GENDER = NULL;
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, POSITION 직책, GENDER 성별
+FROM cslee.TB_EMP
+WHERE GENDER IS NULL;
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, POSITION 직책
+FROM cslee.TB_EMP
+WHERE ORG_CD = '10'
+AND NOT POSITION = '팀장';
+
+SELECT EMP_NAME 사원이름, ORG_CD 소속, POSITION 직책
+FROM cslee.TB_EMP
+WHERE ORG_CD IS NOT NULL;
+
+SELECT ORG_CD 부서, EMP_NAME 사원이름, ENT_DATE 입사일
+FROM cslee.TB_EMP
+ORDER BY ORG_CD, ENT_DATE DESC;
+
+SELECT EMP_NAME, EMP_NO, ORG_CD
+FROM cslee.TB_EMP
+ORDER BY EMP_NAME ASC, EMP_NO ASC, EMP_NO DESC;
+
+SELECT EMP_NAME 사원이름, EMP_NO 사원번호, ORG_CD 부서코드
+FROM cslee.TB_EMP
+ORDER BY 사원이름, 사원번호, 부서코드 DESC;
+
+SELECT EMP_NAME, EMP_NO, ORG_CD
+FROM cslee.TB_EMP
+ORDER BY 1 ASC, 2 ASC, 3 DESC;
+
+SELECT EMP_NAME 사원이름, EMP_NO 사원번호, ORG_CD 부서코드
+FROM cslee.TB_EMP
+ORDER BY EMP_NAME, 2, 부서코드 DESC;
+q			
